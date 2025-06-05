@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgresql-config
+  namespace: dso-assignment
+data:
+  POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+  POSTGRES_DB: ""
+  POSTGRES_USER: ""
+  POSTGRES_PASSWORD: ""
