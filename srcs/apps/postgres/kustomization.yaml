@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: dso-assignment
+commonLabels:
+  app: postgres
+  owner: viruskizz
+images:
+  - name: postgres
+    newName: postgres
+    newTag: 15-alpine
+# secretGenerator:
+#   - name: postgresql-secret
+#     files:
+#       - .secret
+configMapGenerator:
+  - name: postgresql-config
+    envs:
+      - .env
+    behavior: merge
+resources:
+  - deployment.yaml
+  - pv.yaml
+  - pvc.yaml
+  - configmap.yaml

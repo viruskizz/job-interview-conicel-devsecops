@@ -4,9 +4,10 @@ metadata:
   name: postgres-volume
   labels:
     type: local
-    app: postgres
+  annotations:
+    description: "PostgreSQL data persistence"
 spec:
-  storageClassName: manual
+  storageClassName: ""
   capacity:
     storage: 10Gi
   accessModes:

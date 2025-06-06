@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+        service: database
+      annotations:
+        description: "PostgreSQL database for message persistence"
+    spec:
+      containers:
+        - name: postgres
+          image: 'postgres:14'
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgresql-config
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresdata
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} -D ${PGDATA}
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+            initialDelaySeconds: 5
+      volumes:
+        - name: postgresdata
+          persistentVolumeClaim:
+            claimName: postgres-volume-claim
