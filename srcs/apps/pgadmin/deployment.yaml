@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: pgadmin
+  template:
+    metadata:
+      labels:
+        app: pgadmin
+        service: monitoring
+      annotations:
+        description: "PostgreSQL management interface"
+    spec:
+      containers:
+        - name: pgadmin
+          image: 'pgadmin'
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: pgadmin-config
+          volumeMounts:
+            - name: pgadmindata
+              mountPath: /var/lib/pgadmin
+      volumes:
+        - name: pgadmindata
+          persistentVolumeClaim:
+            claimName: pgadmin-volume-claim

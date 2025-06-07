@@ -1,3 +1,8 @@
+# Prequistis
+- K3S
+- Kubernets
+- Kustomize
+
 # Convertion Checklist
 - [] Frontend
 - [] Backend
@@ -5,5 +10,5 @@
 - [] Init  <!-- One Time Setup -->
 - [] Kafka
 - [] KafkaUI
-- [] PostgreSQL
+- [x] PostgreSQL
 - [] PGAdmin

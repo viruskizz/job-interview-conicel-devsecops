@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: dso-assignment
+commonLabels:
+  app: pgadmin
+  owner: viruskizz
+images:
+  - name: pgadmin
+    newName: dpage/pgadmin4
+    newTag: latest
+configMapGenerator:
+  - name: pgadmin-config
+    envs:
+      - .env
+    behavior: merge
+generatorOptions:
+  disableNameSuffixHash: true
+resources:
+  - deployment.yaml
+  - configmap.yaml
+  - pv.yaml
+  - pvc.yaml
