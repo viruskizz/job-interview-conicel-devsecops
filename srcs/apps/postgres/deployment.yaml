@@ -4,6 +4,7 @@ metadata:
   name: postgres
 spec:
   replicas: 1
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
       app: postgres
@@ -24,19 +25,16 @@ spec:
           envFrom:
             - configMapRef:
                 name: postgresql-config
-          env:
-            - name: PGDATA
-              value: /var/lib/postgresql/data
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgresdata
+            - name: postgresdata
+              mountPath: /var/lib/postgresql/data
           readinessProbe:
             exec:
               command:
                 - /bin/sh
                 - -c
                 - |
-                  pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} -D ${PGDATA}
+                  pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 5

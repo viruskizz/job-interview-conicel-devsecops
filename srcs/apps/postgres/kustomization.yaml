@@ -8,15 +8,13 @@ images:
   - name: postgres
     newName: postgres
     newTag: 15-alpine
-# secretGenerator:
-#   - name: postgresql-secret
-#     files:
-#       - .secret
 configMapGenerator:
   - name: postgresql-config
     envs:
       - .env
     behavior: merge
+generatorOptions:
+  disableNameSuffixHash: true
 resources:
   - deployment.yaml
   - pv.yaml
