@@ -16,7 +16,8 @@ configMapGenerator:
 generatorOptions:
   disableNameSuffixHash: true
 resources:
-  - deployment.yaml
   - configmap.yaml
   - pv.yaml
   - pvc.yaml
+  - deployment.yaml
+  - service.yaml

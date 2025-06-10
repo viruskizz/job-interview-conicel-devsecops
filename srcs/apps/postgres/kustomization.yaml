@@ -20,3 +20,4 @@ resources:
   - pv.yaml
   - pvc.yaml
   - configmap.yaml
+  - service.yaml
