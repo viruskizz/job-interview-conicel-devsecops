@@ -3,6 +3,12 @@
 - Kubernets
 - Kustomize
 
+# Usage
+run make command to apply kustomize
+```sh
+make
+```
+
 # Convertion Checklist
 - [] Frontend
 - [] Backend
@@ -11,4 +17,4 @@
 - [] Kafka
 - [] KafkaUI
 - [x] PostgreSQL
-- [] PGAdmin
+- [x] PGAdmin
